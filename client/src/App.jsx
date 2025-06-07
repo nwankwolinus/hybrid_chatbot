@@ -1,18 +1,27 @@
 import { useState } from 'react';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = "https://hybrid-chatbot.onrender.com";
 
 async function sendMessage(message) {
-  const res = await fetch(`${API_URL}/chat`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ message })
-  });
+  try {
+    const response = await fetch(`${API_URL}/chat`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
 
-  const data = await res.json();
-  return data.response;
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    return data.response;
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return "⚠️ Error: Could not reach backend.";
+  }
 }
 
 function App() {
