@@ -1,11 +1,16 @@
 import { useState } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 async function sendMessage(message) {
-  const res = await fetch("https://your-heroku-backend.herokuapp.com/chat", {
+  const res = await fetch(`${API_URL}/chat`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message }),
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message })
   });
+
   const data = await res.json();
   return data.response;
 }
