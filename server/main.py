@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import openai
@@ -34,7 +34,7 @@ app.add_middleware(
 )
 
 # Root route accepts GET and HEAD to avoid 405 errors
-@app.get("/", methods=["GET", "HEAD"])
+@app.api_route("/", methods=["GET", "HEAD"])
 async def root():
     return {"message": "Welcome to the chatbot API. Use the /chat endpoint to interact."}
 
