@@ -32,16 +32,15 @@ function App() {
     if (!input.trim()) return;
 
     const userMsg = { role: 'user', text: input };
-    setMessages((msgs) => [...msgs, userMsg]);
     setInput("");
 
     try {
       const aiText = await sendMessage(input);
       const aiMsg = { role: 'ai', text: aiText };
-      setMessages((msgs) => [...msgs, aiMsg]);
+      setMessages((msgs) => [...msgs, userMsg, aiMsg]);
     } catch {
       const errMsg = { role: 'ai', text: "⚠️ Error: Could not reach backend." };
-      setMessages((msgs) => [...msgs, errMsg]);
+      setMessages((msgs) => [...msgs, userMsg, errMsg]);
     }
   };
 
