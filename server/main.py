@@ -6,6 +6,8 @@ import httpx
 import os
 from dotenv import load_dotenv
 
+print(f"Starting server on port {os.getenv('PORT')}")  # Print port for debugging
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -30,6 +32,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Root route to avoid 404 at /
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the chatbot API. Use the /chat endpoint to interact."}
 
 # In-memory chat history
 chat_history = []
