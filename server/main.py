@@ -33,8 +33,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Root route to avoid 404 at /
-@app.get("/")
+# Root route accepts GET and HEAD to avoid 405 errors
+@app.get("/", methods=["GET", "HEAD"])
 async def root():
     return {"message": "Welcome to the chatbot API. Use the /chat endpoint to interact."}
 
