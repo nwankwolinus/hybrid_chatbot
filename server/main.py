@@ -76,3 +76,6 @@ async def chat(req: ChatRequest):
     answer = response.choices[0].text.strip()
     chat_history.append({"user": req.message, "ai": answer})
     return {"response": answer}
+@app.get("/")
+async def root():
+    return {"message": "Hybrid Chatbot backend is running."}
